@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -602,10 +602,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#170" class="md-nav__link">
+  <a href="#200-20260117" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1.7.0
+        2.0.0 - 20260117
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#162-20251216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.2 - 20251216
       
     </span>
   </a>
@@ -1152,6 +1163,8 @@
       
         
       
+        
+      
     
     
     
@@ -1240,6 +1253,34 @@
     
   
     How to hide files in directory with the specified client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howto/howto-pyinstaller/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to use PyInstaller to package the project
   
 
     
@@ -1655,10 +1696,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#170" class="md-nav__link">
+  <a href="#200-20260117" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1.7.0
+        2.0.0 - 20260117
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#162-20251216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.2 - 20251216
       
     </span>
   </a>
@@ -1974,12 +2026,38 @@
 
 
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
-<h2 id="170">1.7.0<a class="headerlink" href="#170" title="Permanent link">&para;</a></h2>
+<h2 id="200-20260117">2.0.0 - 20260117<a class="headerlink" href="#200-20260117" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Broken change:</li>
 <li>remove brotli support</li>
+<li>WebDAV support:</li>
+<li>feat: support request header <code>If</code></li>
+<li>refactor: rewrite lock related code; fix two litmus warning</li>
+<li>refactor: full support request header <code>If-Range</code></li>
+<li>refactor: request header <code>Range</code> support</li>
+<li>refactor: request header <code>Lock-Token</code> support</li>
+<li>refactor: request header <code>Timeout</code> support</li>
+<li>refactor: request header <code>Depth</code> support</li>
+<li>refactor: lazy process request option header</li>
+<li>Provider support:</li>
+<li>refactor: rewrite MemoryProvider implementation</li>
+<li>Response:</li>
 <li>feat: support zstd compression in response</li>
+<li>feat: response support header: X-Uncompressed-Content-Length</li>
+<li>refactor: DAVResponse</li>
+<li>refactor: DAVSender</li>
+<li>Other:</li>
+<li>fix: handle filebar XML parsing issue(temporary solution)</li>
+<li>refactor: config logic</li>
+<li>refactor: improve type hints for mypy</li>
+<li>chore: add mypy configuration</li>
+<li>chore: compatible with py3.14</li>
 <li>chore: update xmltodict to v1.0.2</li>
+<li>and more...</li>
+</ul>
+<h2 id="162-20251216">1.6.2 - 20251216<a class="headerlink" href="#162-20251216" title="Permanent link">&para;</a></h2>
+<ul>
+<li>fix: use absolute path for multi-suffix config files</li>
 </ul>
 <h2 id="161-20251101">1.6.1 - 20251101<a class="headerlink" href="#161-20251101" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1988,24 +2066,24 @@
 <h2 id="160-20251031">1.6.0 - 20251031<a class="headerlink" href="#160-20251031" title="Permanent link">&para;</a></h2>
 <ul>
 <li>feat: new config, <code>HTTPBasicAuth.cache_timeout</code></li>
-<li>Optionally expire authentication cache entries after a defined time, thanks <a href="https://www.pic.es">PIC</a></li>
+<li>Optionally expire authentication cache entries after a defined time, thanks <a href="https://www.pic.es">PIC</a> <a href="docs/acknowledgements.md#PIC">1</a></li>
 <li>feat: new config, <code>Compression.enable</code></li>
 <li>feat: both support <code>.toml</code> and <code>.json</code> config file</li>
 <li>feat: support optional anonymous user, thanks <a href="https://www.pic.es">PIC</a>'s idea</li>
-<li>feat: Implement a WebHDFS provider, contributed by <a href="https://www.pic.es">PIC</a></li>
+<li>feat: Implement a WebHDFS provider, contributed by <a href="https://www.pic.es">PIC</a> <a href="docs/acknowledgements.md#PIC">1</a></li>
 </ul>
 <h2 id="150-20250628">1.5.0 - 20250628<a class="headerlink" href="#150-20250628" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Breaking Change</li>
 <li>feat: <code>config.Provider</code> has new <code>ignore_property_extra</code> poperty, default is <code>True</code></li>
-<li>Allow authenticating any user from LDAP server, thanks <a href="https://www.pic.es">PIC</a></li>
+<li>Allow authenticating any user from LDAP server, thanks <a href="https://www.pic.es">PIC</a> <a href="docs/acknowledgements.md#PIC">1</a></li>
 <li>feat: better timezone support, get timezone from env <code>TZ</code></li>
 <li>feat: <code>HTTPBasicAuth</code>'s cache is now configurable</li>
 </ul>
 <h2 id="142-20250424">1.4.2 - 20250424<a class="headerlink" href="#142-20250424" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Fix, ensure expected HTTP response header is included in responses, thanks <a href="https://github.com/SilviaSWR">SilviaSWR</a></li>
-<li>Add, handle non-existing parent folder, thanks <a href="https://github.com/SilviaSWR">SilviaSWR</a></li>
+<li>Fix, ensure expected HTTP response header is included in responses, thanks <a href="https://github.com/SilviaSWR">SilviaSWR</a> <a href="docs/acknowledgements.md#PIC">PIC 1</a></li>
+<li>Add, handle non-existing parent folder, thanks <a href="https://github.com/SilviaSWR">SilviaSWR</a> <a href="docs/acknowledgements.md#PIC">PIC 1</a></li>
 </ul>
 <h2 id="141-20240626">1.4.1 - 20240626<a class="headerlink" href="#141-20240626" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2151,7 +2229,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-12-10
+    2026-01-20
   </span>
 
     
@@ -2326,10 +2404,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
