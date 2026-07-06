@@ -12,7 +12,7 @@ nav:
       - setup/install.md
       - setup/config.md
   - Guidebook:
-      # 具体到某一个功能的使用说明
+      # 具体到某一个特性的详细说明
       - Guides: guide
       - How To: howto
   - Reference:
