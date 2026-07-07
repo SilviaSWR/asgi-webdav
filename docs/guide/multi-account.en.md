@@ -1,6 +1,7 @@
 # Multi-Account and Home Directory
 
 ## config file
+
 `/your/data/webdav.json`
 
 ```json
@@ -9,34 +10,24 @@
         {
             "username": "user_all",
             "password": "pw1",
-            "permissions": [
-                "+"
-            ]
+            "permissions": ["+"]
         },
         {
             "username": "user_a",
             "password": "pw2",
-            "permissions": [
-                "+^/$",
-                "+^/share",
-                "-^/share/no_a"
-            ]
+            "permissions": ["+^/$", "+^/share", "-^/share/no_a"]
         },
         {
             "username": "user_b",
             "password": "pw3",
-            "permissions": [
-                "+^/$",
-                "+^/share",
-                "-^/share/no_b"
-            ]
+            "permissions": ["+^/$", "+^/share", "-^/share/no_b"]
         },
         {
             "username": "guest",
             "password": "pw4",
             "permissions": []
         }
-    ],  
+    ],
     "provider_mapping": [
         {
             "prefix": "/",
@@ -60,7 +51,8 @@
 ```
 
 ## docker command
-```
+
+```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data -v /your/data/homes:/data/homes \
   --name asgi-webdav ray1ex/asgi-webdav
@@ -69,7 +61,7 @@ docker run --restart always -p 0.0.0.0:8000:8000 \
 ## URL/path mapping table
 
 | user     | URL      | path in docker container | path in host                  |
-|----------|----------|--------------------------|-------------------------------|
+| -------- | -------- | ------------------------ | ----------------------------- |
 | All      | `/`      | `/data/root`             | `/your/data/root`             |
 | All      | `/share` | `/data/root/share`       | `/your/data/root/share`       |
 | All      | `/temp1` | memory area #1           |                               |
@@ -82,7 +74,7 @@ docker run --restart always -p 0.0.0.0:8000:8000 \
 ## account permission
 
 | username          | `user_all` | `user_a` | `user_b` | `guest` |
-|-------------------|------------|----------|----------|---------|
+| ----------------- | ---------- | -------- | -------- | ------- |
 | password          | `pw1`      | `pw2`    | `pw3`    | `pw4`   |
 | URL `/~`          | Allow      | Allow    | Allow    | Allow   |
 | URL `/`           | Allow      | Allow    | Allow    | Deny    |

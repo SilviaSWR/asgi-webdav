@@ -55,11 +55,11 @@ permissions = [ ]
 
 - `user_all` 的密码为 `pw1`，权限为允许访问所有 URL
 - `user_litmus`的密码为`pw2`
-  - 允许访问
-    - URL `/`
-    - URL`/litmus`以及其子目录
-  - 禁止访问
-    - URL`/litmus/other`以及其子目录
+    - 允许访问
+        - URL `/`
+        - URL`/litmus`以及其子目录
+    - 禁止访问
+        - URL`/litmus/other`以及其子目录
 - `guest`的密码为`pw3`，无任何 URL 访问权限
 
 > 权限规则不分读写;对某个 URL 有权限，既表示对此 URL 下的文件和子路径均有读写权限，并可列出此路径下所有成员

@@ -4,14 +4,14 @@ change your `webdav.json` like blow:
 
 ```json
 {
-  "guess_type_extension": {
-    "filename_mapping": {
-      ".bashrc": "text/plain"
-    },
-    "suffix_mapping": {
-      ".py": "text/plain"
+    "guess_type_extension": {
+        "filename_mapping": {
+            ".bashrc": "text/plain"
+        },
+        "suffix_mapping": {
+            ".py": "text/plain"
+        }
     }
-  }
 }
 ```
 

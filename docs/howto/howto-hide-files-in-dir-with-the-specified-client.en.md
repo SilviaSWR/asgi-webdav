@@ -4,21 +4,22 @@
 
 ```json
 {
-  "hide_file_in_dir": {
-    "user_rules": {
-      "": ".+\\.do-not-display-at-every$"
+    "hide_file_in_dir": {
+        "user_rules": {
+            "": ".+\\.do-not-display-at-every$"
+        }
     }
-  }
 }
 ```
 
 ## Hide `hide.*` and `*.hide` in macOS finder
+
 ```json
 {
-  "hide_file_in_dir": {
-    "user_rules": {
-      "WebDAVFS": "^hide\\.|.+\\.hide$"
+    "hide_file_in_dir": {
+        "user_rules": {
+            "WebDAVFS": "^hide\\.|.+\\.hide$"
+        }
     }
-  }
 }
 ```

@@ -177,7 +177,7 @@ More detail, please see howto.
 
 - Unit: second
 - Supported `cache_type`:
-  - `expiring`
+    - `expiring`
 
 | Value | Meaning                                |
 | ----- | -------------------------------------- |

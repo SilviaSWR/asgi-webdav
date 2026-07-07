@@ -6,9 +6,7 @@
 {
     "cors": {
         "enable": true,
-        "allow_origins": [
-            "*"
-        ]
+        "allow_origins": ["*"]
     }
 }
 ```
@@ -19,10 +17,7 @@
 {
     "cors": {
         "enable": true,
-        "allow_origins": [
-            "https://i.am.origin.com",
-            "https://me.too.com"
-        ]
+        "allow_origins": ["https://i.am.origin.com", "https://me.too.com"]
     }
 }
 ```
@@ -45,9 +40,7 @@
     "cors": {
         "enable": true,
         "allow_url_regex": "^/cors/path.*",
-        "allow_origins": [
-            "*"
-        ]
+        "allow_origins": ["*"]
     }
 }
 ```
@@ -58,14 +51,8 @@
 {
     "cors": {
         "enable": true,
-        "allow_origins": [
-            "*"
-        ],
-        "allow_methods": [
-            "GET",
-            "HEAD",
-            "POST"
-        ]
+        "allow_origins": ["*"],
+        "allow_methods": ["GET", "HEAD", "POST"]
     }
 }
 ```

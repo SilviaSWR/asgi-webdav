@@ -161,10 +161,10 @@ python -m asgi_webdav --litmus # Deprecated
 #### Remark
 
 - WARNING: DELETE removed collection resource with Request-URI including fragment; unsafe
-  - The litmus expect WebDAV server response code 400, when request DELETE with fragment(DELETE /litmus/frag/#ment)
-  - ASGI server
-    doesn't [forward](https://asgi.readthedocs.io/en/latest/specs/www.html#http-connection-scope) `fragment`
-    info to application
+    - The litmus expect WebDAV server response code 400, when request DELETE with fragment(DELETE /litmus/frag/#ment)
+    - ASGI server
+      doesn't [forward](https://asgi.readthedocs.io/en/latest/specs/www.html#http-connection-scope) `fragment`
+      info to application
 
 ### Apache mod_webdav in Docker
 

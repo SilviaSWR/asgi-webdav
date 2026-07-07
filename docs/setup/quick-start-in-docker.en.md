@@ -2,13 +2,13 @@
 
 ## Install
 
-```
+```shell
 docker pull ray1ex/asgi-webdav:latest
 ```
 
 ## Take a Glance
 
-```
+```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data \
   --name asgi-webdav ray1ex/asgi-webdav
@@ -28,18 +28,12 @@ Create file `/your/data/webdav.json` as below
         {
             "username": "user_all",
             "password": "pw1",
-            "permissions": [
-                "+"
-            ]
+            "permissions": ["+"]
         },
         {
             "username": "user_litmus",
             "password": "pw2",
-            "permissions": [
-                "+^/$",
-                "+^/litmus",
-                "-^/litmus/other"
-            ]
+            "permissions": ["+^/$", "+^/litmus", "-^/litmus/other"]
         },
         {
             "username": "guest",
@@ -52,11 +46,11 @@ Create file `/your/data/webdav.json` as below
 
 Restart the docker container and it will take effect. There are three accounts in total.
 
-| username      | password  | access permissions                |
-|---------------|-----------|-----------------------------------|
-| `user_all`    | `pw1`     | all path                          |
-| `user_litmus` | `pw2`     | `/` and `/litmus` and `/litmus/*` |
-| `guest`       | `pw3`     | can not access any path           |
+| username      | password | access permissions                |
+| ------------- | -------- | --------------------------------- |
+| `user_all`    | `pw1`    | all path                          |
+| `user_litmus` | `pw2`    | `/` and `/litmus` and `/litmus/*` |
+| `guest`       | `pw3`    | can not access any path           |
 
 ## Path Mapping
 
@@ -70,9 +64,7 @@ Change file `/your/data/webdav.json` as below.
         {
             "username": "username",
             "password": "password",
-            "permissions": [
-                "+"
-            ]
+            "permissions": ["+"]
         }
     ],
     "provider_mapping": [
@@ -98,7 +90,7 @@ Change file `/your/data/webdav.json` as below.
 
 ### Create Docker Container
 
-```
+```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data -v /your/data/other:/data/other \
   --name asgi-webdav ray1ex/asgi-webdav
@@ -107,7 +99,7 @@ docker run --restart always -p 0.0.0.0:8000:8000 \
 ### Path Mapping Table
 
 | HTTP path        | path in Docker container | path in host machine |
-|------------------|--------------------------|----------------------|
+| ---------------- | ------------------------ | -------------------- |
 | `/`              | `/data/root`             | `/your/data/root`    |
 | `/litmus`        | memory area A            |                      |
 | `/litmus/fs`     | `/data/other`            | `/your/data/other`   |
@@ -126,9 +118,7 @@ docker run --restart always -p 0.0.0.0:8000:8000 \
         {
             "username": "user_a",
             "password": "password",
-            "permissions": [
-                "+"
-            ]
+            "permissions": ["+"]
         },
         {
             "username": "user_b",
@@ -152,7 +142,7 @@ docker run --restart always -p 0.0.0.0:8000:8000 \
 
 ### Create Docker Container
 
-```
+```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data -v /your/data/homes:/data/homes \
   --name asgi-webdav ray1ex/asgi-webdav
@@ -161,7 +151,7 @@ docker run --restart always -p 0.0.0.0:8000:8000 \
 ### Path Mapping Table
 
 | user     | URL      | path in Docker container | path in host machine          |
-|----------|----------|--------------------------|-------------------------------|
+| -------- | -------- | ------------------------ | ----------------------------- |
 | `user_a` | `/~`     | `/data/homes/user_a`     | `/your/data/homes/user_a`     |
 | `user_a` | `/~/sub` | `/data/homes/user_a/sub` | `/your/data/homes/user_a/sub` |
 | `user_b` | `/~`     | `/data/homes/user_b`     | `/your/data/homes/user_b`     |

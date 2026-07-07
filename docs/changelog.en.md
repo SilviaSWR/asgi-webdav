@@ -8,30 +8,30 @@
 ## 2.0.0 - 20260117
 
 - Broken change:
-  - remove brotli support
+    - remove brotli support
 - WebDAV support:
-  - feat: support request header `If`
-  - refactor: rewrite lock related code; fix two litmus warning
-  - refactor: full support request header `If-Range`
-  - refactor: request header `Range` support
-  - refactor: request header `Lock-Token` support
-  - refactor: request header `Timeout` support
-  - refactor: request header `Depth` support
-  - refactor: lazy process request option header
+    - feat: support request header `If`
+    - refactor: rewrite lock related code; fix two litmus warning
+    - refactor: full support request header `If-Range`
+    - refactor: request header `Range` support
+    - refactor: request header `Lock-Token` support
+    - refactor: request header `Timeout` support
+    - refactor: request header `Depth` support
+    - refactor: lazy process request option header
 - Provider support:
-  - refactor: rewrite MemoryProvider implementation
+    - refactor: rewrite MemoryProvider implementation
 - Response:
-  - feat: support zstd compression in response
-  - feat: response support header: X-Uncompressed-Content-Length
-  - refactor: DAVResponse
-  - refactor: DAVSender
+    - feat: support zstd compression in response
+    - feat: response support header: X-Uncompressed-Content-Length
+    - refactor: DAVResponse
+    - refactor: DAVSender
 - Other:
-  - fix: handle filebar XML parsing issue(temporary solution)
-  - refactor: config logic
-  - refactor: improve type hints for mypy
-  - chore: add mypy configuration
-  - chore: compatible with py3.14
-  - chore: update xmltodict to v1.0.2
+    - fix: handle filebar XML parsing issue(temporary solution)
+    - refactor: config logic
+    - refactor: improve type hints for mypy
+    - chore: add mypy configuration
+    - chore: compatible with py3.14
+    - chore: update xmltodict to v1.0.2
 - and more...
 
 ## 1.6.2 - 20251216
@@ -54,7 +54,7 @@
 ## 1.5.0 - 20250628
 
 - Breaking Change
-  - feat: `config.Provider` has new `ignore_property_extra` poperty, default is `True`
+    - feat: `config.Provider` has new `ignore_property_extra` poperty, default is `True`
 - Allow authenticating any user from LDAP server, thanks [PIC](https://www.pic.es) [1](acknowledgements.md#pic)
 - feat: better timezone support, get timezone from env `TZ`
 - feat: `HTTPBasicAuth`'s cache is now configurable
@@ -101,7 +101,7 @@
 ## 1.2.0 - 2022-06-20
 
 - Broken change
-  - Change `Config.compression.user_content_type_rule` to `Config.compression.content_type_user_rule`
+    - Change `Config.compression.user_content_type_rule` to `Config.compression.content_type_user_rule`
 - Add more support for HTTP header: Range
 - Fix HTTP Digest rules checker
 - Add a new property `DAVResponse.compression_method`
@@ -114,7 +114,7 @@
 ## 1.0.0 - 2022-03-09
 
 - Broken change
-  - Remove feature: DirBrowserIgnore
+    - Remove feature: DirBrowserIgnore
 - Change docker base image from slim -> alpine,
 - Add non-root support in docker container
 - Add new feature: hide file in directory
@@ -170,8 +170,8 @@
 ## 0.3.1 - 2021-05-06
 
 - Broken change:
-  - Config.username/password => Config.account_mapping
-  - Environment Variable Name
+    - Config.username/password => Config.account_mapping
+    - Environment Variable Name
 - Add multi-account support
 - Add permission support
 - Add home_dir support
