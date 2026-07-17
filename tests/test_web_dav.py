@@ -12,14 +12,15 @@ from asgi_webdav.property import DAVProperty, DAVPropertyBasicData
 from asgi_webdav.provider.file_system import FileSystemProvider
 from asgi_webdav.provider.memory import MemoryProvider
 from asgi_webdav.provider.webhdfs import WebHDFSProvider
-from asgi_webdav.web_dav import WebDAV, load_templates
+from asgi_webdav.template import TemplateLoader
+from asgi_webdav.web_dav import WebDAV
 
 
 def _make_config() -> MagicMock:
     config = MagicMock()
     config.enable_dir_browser = True
     config.provider_mapping = []
-    config.dir_browser_dir = None
+    config.template_dir = None
     return config
 
 
@@ -48,7 +49,7 @@ def _make_dav_property(
 
 @pytest.fixture
 def webdav() -> WebDAV:
-    wd = WebDAV(_make_config())
+    wd = WebDAV(_make_config(), TemplateLoader())
     wd.timezone = ZoneInfo("UTC")
     wd._hide_file_in_dir = MagicMock()
     wd._hide_file_in_dir.is_match_hide_file_in_dir = AsyncMock(return_value=False)
@@ -93,7 +94,6 @@ def _get_html(webdav, properties, root="/"):
     )
 
 
-@pytest.mark.asyncio
 async def test_create_dir_browser_content_root(webdav):
     props = dict(
         [
@@ -124,7 +124,6 @@ async def test_create_dir_browser_content_root(webdav):
     assert ".." not in html
 
 
-@pytest.mark.asyncio
 async def test_create_dir_browser_content_subdir(webdav):
     props = dict(
         [
@@ -144,7 +143,6 @@ async def test_create_dir_browser_content_subdir(webdav):
     assert "parent" in html
 
 
-@pytest.mark.asyncio
 async def test_create_dir_browser_content_sorting(webdav):
     props = dict(
         [
@@ -163,7 +161,6 @@ async def test_create_dir_browser_content_sorting(webdav):
     assert dir_idx < file_idx
 
 
-@pytest.mark.asyncio
 async def test_create_dir_browser_content_hide_file(webdav):
     webdav._hide_file_in_dir.is_match_hide_file_in_dir = AsyncMock(return_value=True)
 
@@ -180,7 +177,6 @@ async def test_create_dir_browser_content_hide_file(webdav):
     assert "file.txt" not in html
 
 
-@pytest.mark.asyncio
 async def test_create_dir_browser_content_empty_dir(webdav):
     props = dict(
         [
@@ -196,23 +192,35 @@ async def test_create_dir_browser_content_empty_dir(webdav):
     assert "Index of" in html
 
 
-class TestLoadTemplates:
-    def test_loads_bundled_templates(self):
-        templates = load_templates()
-        assert all(
-            name in templates
-            for name in (
-                "index.html",
-                "row_parent.html",
-                "row_directory.html",
-                "row_file.html",
-            )
-        )
-        assert all(t is not None for t in templates.values())
+class TestTemplateLoader:
+    def test_loads_bundled_dir_browser_templates(self):
+        loader = TemplateLoader()
+        for name in (
+            "index.html",
+            "row_parent.html",
+            "row_directory.html",
+            "row_file.html",
+        ):
+            t = loader.get_template("dir_browser", name)
+            assert t is not None
+
+    def test_loads_bundled_admin_templates(self):
+        loader = TemplateLoader()
+        t = loader.get_template("admin", "index.html")
+        assert t is not None
+        result = t.substitute()
+        assert "Admin" in result
+
+    def test_loads_bundled_error_templates(self):
+        loader = TemplateLoader()
+        t = loader.get_template("error", "401.html")
+        assert t is not None
+        result = t.substitute(message="test error")
+        assert "401 Unauthorized. test error" in result
 
     def test_bundled_templates_are_valid(self):
-        templates = load_templates()
-        result = templates["row_file.html"].substitute(
+        loader = TemplateLoader()
+        result = loader.get_template("dir_browser", "row_file.html").substitute(
             href="/test.txt",
             name="test.txt",
             type="text/plain",
@@ -225,8 +233,8 @@ class TestLoadTemplates:
         assert "100" in result
 
     def test_bundled_row_directory_template(self):
-        templates = load_templates()
-        result = templates["row_directory.html"].substitute(
+        loader = TemplateLoader()
+        result = loader.get_template("dir_browser", "row_directory.html").substitute(
             href="/mydir", name="mydir", type="application/index", modified="2025-01-01"
         )
         assert "/mydir" in result
@@ -234,44 +242,62 @@ class TestLoadTemplates:
         assert "<b>" in result
 
     def test_bundled_row_parent_template(self):
-        templates = load_templates()
-        result = templates["row_parent.html"].substitute(href="/parent")
+        loader = TemplateLoader()
+        result = loader.get_template("dir_browser", "row_parent.html").substitute(
+            href="/parent"
+        )
         assert "/parent" in result
         assert ".." in result
 
     def test_custom_dir_overrides_template(self):
         with tempfile.TemporaryDirectory() as tmpdir:
-            custom_index = Path(tmpdir) / "index.html"
+            custom_dir = Path(tmpdir) / "dir_browser"
+            custom_dir.mkdir()
+            custom_index = custom_dir / "index.html"
             custom_index.write_text("CUSTOM INDEX ${path}")
 
-            templates = load_templates(tmpdir)
-            result = templates["index.html"].substitute(path="/test")
+            loader = TemplateLoader(tmpdir)
+            result = loader.get_template("dir_browser", "index.html").substitute(
+                path="/test"
+            )
             assert result == "CUSTOM INDEX /test"
 
-            assert templates["row_file.html"] is not None
-            result = templates["row_file.html"].substitute(
+            # non-overridden files still use bundled
+            result = loader.get_template("dir_browser", "row_file.html").substitute(
                 href="/f", name="f", type="t", size="1", modified="m"
             )
             assert "<tr>" in result
 
     def test_custom_dir_partial_override(self):
         with tempfile.TemporaryDirectory() as tmpdir:
-            custom_row_file = Path(tmpdir) / "row_file.html"
+            custom_dir = Path(tmpdir) / "dir_browser"
+            custom_dir.mkdir()
+            custom_row_file = custom_dir / "row_file.html"
             custom_row_file.write_text("<tr><td>FILE: ${name}</td></tr>")
 
-            templates = load_templates(tmpdir)
-            result = templates["row_file.html"].substitute(
+            loader = TemplateLoader(tmpdir)
+            result = loader.get_template("dir_browser", "row_file.html").substitute(
                 href="/f", name="myfile.txt", type="t", size="1", modified="m"
             )
             assert "FILE: myfile.txt" in result
 
-            result = templates["row_directory.html"].substitute(
-                href="/d", name="mydir", type="t", modified="m"
-            )
+            result = loader.get_template(
+                "dir_browser", "row_directory.html"
+            ).substitute(href="/d", name="mydir", type="t", modified="m")
             assert "<b>" in result
 
+    def test_missing_template_raises(self):
+        loader = TemplateLoader()
+        with pytest.raises(FileNotFoundError):
+            loader.get_template("nonexistent", "page.html")
 
-@pytest.mark.asyncio
+    def test_caching(self):
+        loader = TemplateLoader()
+        t1 = loader.get_template("dir_browser", "index.html")
+        t2 = loader.get_template("dir_browser", "index.html")
+        assert t1 is t2
+
+
 async def test_create_dir_browser_content_html_structure(webdav):
     props = dict(
         [
