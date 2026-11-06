@@ -247,7 +247,7 @@ More detail, please see howto.
 | -------------------- | ---------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | enable               | bool       | `true`        | -                                                                                                                                     |
 | enable_default_rules | bool       | `true`        | -                                                                                                                                     |
-| user_rules           | dict       | `{}`          | [`like default`](https://github.com/rexzhang/asgi-webdav/blob/231c233df58456e81b7264a65c1bce7d37047d19/asgi_webdav/constants.py#L326) |
+| user_rules           | dict       | `{}`          | [`like default`](https://github.com/SilviaSWR/asgi-webdav/blob/231c233df58456e81b7264a65c1bce7d37047d19/asgi_webdav/constants.py#L326) |
 
 ### `GuessTypeExtension` Object
 

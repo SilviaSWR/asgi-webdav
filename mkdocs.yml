@@ -2,11 +2,12 @@
 
 # Project information
 site_name: ASGI WebDAV Server Documentation
-site_url: https://rexzhang.github.io/asgi-webdav/
+site_url: https://silviaswr.github.io/asgi-webdav/
 
 # Repository
-repo_name: rexzhang/asgi-webdav
-repo_url: https://rexzhang.github.io/asgi-webdav
+repo_name: SilviaSWR/asgi-webdav
+repo_url: https://github.com/SilviaSWR/asgi-webdav
+edit_uri: edit/main/docs/
 
 # Additional configuration ---
 extra:
@@ -20,9 +21,9 @@ extra:
 
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/rexzhang/asgi-webdav
+      link: https://github.com/SilviaSWR/asgi-webdav
     - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/r/ray1ex/asgi-webdav
+      link: https://github.com/SilviaSWR/asgi-webdav/pkgs/container/asgi-webdav
 
 # Theme ---
 theme:

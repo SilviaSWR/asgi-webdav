@@ -1,16 +1,16 @@
 # 概览
 
-[![GitHub](https://img.shields.io/github/license/rexzhang/asgi-webdav)](https://github.com/rexzhang/asgi-webdav/blob/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/ASGIWebDAV)](https://pypi.org/project/ASGIWebDAV)
-[![PyPI - Version](https://img.shields.io/pypi/pyversions/ASGIWebDAV.svg)](https://pypi.org/project/ASGIWebDAV/)
-![Pytest Workflow Status](https://github.com/rexzhang/asgi-webdav/actions/workflows/check-pytest.yml/badge.svg)
-[![codecov](https://codecov.io/gh/rexzhang/asgi-webdav/branch/main/graph/badge.svg?token=6D961MCCWN)](https://codecov.io/gh/rexzhang/asgi-webdav)
+[![GitHub](https://img.shields.io/github/license/SilviaSWR/asgi-webdav)](https://github.com/SilviaSWR/asgi-webdav/blob/main/LICENSE)
+![Pytest Workflow Status](https://github.com/SilviaSWR/asgi-webdav/actions/workflows/check-pytest.yml/badge.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Docker Pulls](https://img.shields.io/docker/pulls/ray1ex/asgi-webdav)](https://hub.docker.com/r/ray1ex/asgi-webdav)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/ASGIWebDAV)](https://pypi.org/project/ASGIWebDAV)
-[![GitHub Downloads](https://img.shields.io/github/downloads/rexzhang/asgi-webdav/total)](https://github.com/rexzhang/asgi-webdav/releases)
+[![GitHub Downloads](https://img.shields.io/github/downloads/SilviaSWR/asgi-webdav/total)](https://github.com/SilviaSWR/asgi-webdav/releases)
 
 一个基于 Python asyncio 的异步 WebDAV 服务端实现；支持多来源、多账号和权限控制等
+
+!!! note "关于本仓库"
+
+    本文档发布自 [SilviaSWR/asgi-webdav](https://github.com/SilviaSWR/asgi-webdav) 分支，原始项目与文档作者为
+    [Rex Zhang](https://github.com/rexzhang)。本分支未发布到 PyPI。
 
 ## 特性
 
@@ -27,17 +27,17 @@
 - 支持 HTTP Basic/Digest 认证
 - 支持 Gzip/Zstd 压缩
 - 兼容 macOS 访达/ Window10
-  Explorer [等客户端](https://rexzhang.github.io/asgi-webdav/compatibility/#compatible-clients)
+  Explorer [等客户端](https://silviaswr.github.io/asgi-webdav/compatibility/#compatible-clients)
 
 ## 简单尝试
 
 ```shell
-docker pull ray1ex/asgi-webdav
+docker pull ghcr.io/silviaswr/asgi-webdav
 docker run -dit --restart unless-stopped \
   -p 8000:8000 \
   -e UID=1000 -e GID=1000 \
   -v /your/data:/data \
-  --name asgi-webdav ray1ex/asgi-webdav
+  --name asgi-webdav ghcr.io/silviaswr/asgi-webdav
 ```
 
 ### 默认账号
