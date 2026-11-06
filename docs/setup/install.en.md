@@ -5,7 +5,7 @@
 ### Install
 
 ```shell
-docker pull ray1ex/asgi-webdav:latest
+docker pull ghcr.io/silviaswr/asgi-webdav:latest
 ```
 
 ### Startup server
@@ -14,7 +14,7 @@ docker pull ray1ex/asgi-webdav:latest
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data \
   -e UID=1000 -e GID=1000 \
-  --name asgi-webdav ray1ex/asgi-webdav
+  --name asgi-webdav ghcr.io/silviaswr/asgi-webdav
 ```
 
 ```text
@@ -30,13 +30,17 @@ INFO: [uvicorn] Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 
 username is `username`, password is `password`, map `/your/data` to `http://localhost:8000`
 
-## PyPI
+## Python Package
 
 ### Install
 
 ```shell
-pip install -U ASGIWebDAV[full]
+pip install -U "ASGIWebDAV[full] @ git+https://github.com/SilviaSWR/asgi-webdav.git"
 ```
+
+!!! note
+    This fork is not published on PyPI. The command above installs the fork directly from GitHub; see
+    [Source Code](#source-code) for a development checkout.
 
 ### Startup server
 
@@ -70,7 +74,8 @@ username is `username`, password is `password`, mapping current path `.` to `htt
 ### Install
 
 ```shell
-git pull https://github.com/rexzhang/asgi-webdav.git
+git clone https://github.com/SilviaSWR/asgi-webdav.git
+cd asgi-webdav
 pip install -U -r requirements.txt
 ```
 
@@ -95,18 +100,22 @@ pip install -U -r requirements.txt
 === "macOS"
 
     ```shell
-    wget https://github.com/rexzhang/asgi-webdav/releases/download/v0.9.1/asgi-webdav-macos.zip
+    wget https://github.com/SilviaSWR/asgi-webdav/releases/download/v0.9.1/asgi-webdav-macos.zip
     unzip asgi-webdav-macos.zip
     ```
 
 === "Windows"
 
     ```text
-    dl https://github.com/rexzhang/asgi-webdav/releases/download/v2.0.2/asgi-webdav-windows.zip
+    dl https://github.com/SilviaSWR/asgi-webdav/releases/download/v2.0.2/asgi-webdav-windows.zip
     Expand-Archive asgi-webdav-windows.zip
     ```
 
-For other platforms or versions, please visit [GitHub Release](https://github.com/rexzhang/asgi-webdav/releases)
+For other platforms or versions, please visit [GitHub Release](https://github.com/SilviaSWR/asgi-webdav/releases)
+
+!!! note
+    Standalone binaries are produced by this fork's release workflow when a `v*` tag is pushed. If the links above
+    are not available yet, use the Python package or Docker instructions instead.
 
 ### Startup server
 

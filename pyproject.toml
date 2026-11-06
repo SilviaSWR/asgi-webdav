@@ -20,10 +20,10 @@ classifiers = ["Development Status :: 4 - Beta", "Programming Language :: Python
 dynamic = ["version", "dependencies", "optional-dependencies"]
 
 [project.urls]
-homepage = "https://github.com/rexzhang/asgi-webdav"
-documentation = "https://rexzhang.github.io/asgi-webdav/"
-repository = "https://github.com/rexzhang/asgi-webdav"
-changelog = "https://github.com/rexzhang/asgi-webdav/blob/main/docs/changelog.en.md"
+homepage = "https://github.com/SilviaSWR/asgi-webdav"
+documentation = "https://silviaswr.github.io/asgi-webdav/"
+repository = "https://github.com/SilviaSWR/asgi-webdav"
+changelog = "https://github.com/SilviaSWR/asgi-webdav/blob/main/docs/changelog.en.md"
 
 [project.scripts]
 asgi-webdav = "asgi_webdav.cli:main"

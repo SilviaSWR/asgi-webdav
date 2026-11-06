@@ -3,9 +3,7 @@
 ## 下载 Docker 镜像
 
 ```shell
-docker pull ray1ex/asgi-webdav:latest
-# 或者
-docker pull ghcr.io/rexzhang/asgi-webdav
+docker pull ghcr.io/silviaswr/asgi-webdav:latest
 ```
 
 ## 零配置体验，全默认配置启动
@@ -15,7 +13,7 @@ docker pull ghcr.io/rexzhang/asgi-webdav
 ```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data \
-  --name asgi-webdav ray1ex/asgi-webdav
+  --name asgi-webdav ghcr.io/silviaswr/asgi-webdav
 ```
 
 ### 配置说明
@@ -98,7 +96,7 @@ uri = "memory:///"
 ```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data -v /your/data/other:/data/other \
-  --name asgi-webdav ray1ex/asgi-webdav
+  --name asgi-webdav ghcr.io/silviaswr/asgi-webdav
 ```
 
 ### 配置说明
@@ -144,7 +142,7 @@ home_dir = true
 ```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data -v /your/data/homes:/data/homes \
-  --name asgi-webdav ray1ex/asgi-webdav
+  --name asgi-webdav ghcr.io/silviaswr/asgi-webdav
 ```
 
 ### 配置说明

@@ -106,7 +106,7 @@ def main(**kwargs: dict[str, Any]) -> None:
     except ImportError:
         print(
             "Please install ASGI web server implementation first.\n"
-            "  eg: pip install -U ASGIWebDAV[standalone]"
+            '  eg: pip install -U "ASGIWebDAV[standalone] @ git+https://github.com/SilviaSWR/asgi-webdav.git"'
         )
         sys.exit(1)
 

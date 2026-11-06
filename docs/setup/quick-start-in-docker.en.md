@@ -3,7 +3,7 @@
 ## Install
 
 ```shell
-docker pull ray1ex/asgi-webdav:latest
+docker pull ghcr.io/silviaswr/asgi-webdav:latest
 ```
 
 ## Take a Glance
@@ -11,7 +11,7 @@ docker pull ray1ex/asgi-webdav:latest
 ```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data \
-  --name asgi-webdav ray1ex/asgi-webdav
+  --name asgi-webdav ghcr.io/silviaswr/asgi-webdav
 ```
 
 Because there is no `webdav.json` file under `/your/data`, it will be started with the full default configuration. The
@@ -93,7 +93,7 @@ Change file `/your/data/webdav.json` as below.
 ```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data -v /your/data/other:/data/other \
-  --name asgi-webdav ray1ex/asgi-webdav
+  --name asgi-webdav ghcr.io/silviaswr/asgi-webdav
 ```
 
 ### Path Mapping Table
@@ -145,7 +145,7 @@ docker run --restart always -p 0.0.0.0:8000:8000 \
 ```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data -v /your/data/homes:/data/homes \
-  --name asgi-webdav ray1ex/asgi-webdav
+  --name asgi-webdav ghcr.io/silviaswr/asgi-webdav
 ```
 
 ### Path Mapping Table

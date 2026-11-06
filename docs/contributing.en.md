@@ -32,12 +32,12 @@ graph TD
     E --> F[merge]
 ```
 
-### [Proposal](https://github.com/rexzhang/asgi-webdav/issues)
+### [Proposal](https://github.com/SilviaSWR/asgi-webdav/issues)
 
 - Why/How/Who
 - discuss of the technical solution
 
-### [PR Draft](https://github.com/rexzhang/asgi-webdav/pulls)
+### [PR Draft](https://github.com/SilviaSWR/asgi-webdav/pulls)
 
 - create PR in Draft mode
 - discuss of technical details
@@ -50,7 +50,7 @@ graph TD
 ### Prepare
 
 ```shell
-git clone https://github.com/rexzhang/asgi-webdav.git
+git clone https://github.com/SilviaSWR/asgi-webdav.git
 cd asgi-webdav
 pip install -U -r requirements.txt
 ```

@@ -163,7 +163,10 @@ class DAVPassword:
         <ldap>#1#ldaps:/your.domain.com#SIMPLE#uid=user-ldap,cn=users,dc=rexzhang,dc=myds,dc=me
         """
         if bonsai is None or bonsai_exception is None:
-            return False, "Please install LDAP module: pip install -U ASGIWebDAV[ldap]"
+            return (
+                False,
+                'Please install LDAP module: pip install -U "ASGIWebDAV[ldap] @ git+https://github.com/SilviaSWR/asgi-webdav.git"',
+            )
 
         client = bonsai.LDAPClient(self.data[2])
         client.set_credentials(self.data[3], user=self.data[4], password=password)
@@ -194,7 +197,10 @@ class DAVPassword:
         <ldap>#2#ldaps:/your.domain.com#cert_policy=try#uid={username},cn=users,cn=accounts,dc=domain,dc=tld
         """
         if bonsai is None or bonsai_exception is None:
-            return False, "Please install LDAP module: pip install -U ASGIWebDAV[ldap]"
+            return (
+                False,
+                'Please install LDAP module: pip install -U "ASGIWebDAV[ldap] @ git+https://github.com/SilviaSWR/asgi-webdav.git"',
+            )
 
         cert_policy = parse_qs(self.data[3]).get("cert_policy", ["try"])[0]
         bind_dn = self.data[4].format(username=username)

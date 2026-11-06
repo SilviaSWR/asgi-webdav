@@ -1,17 +1,17 @@
 # ASGI WebDAV Server
 
-[![GitHub](https://img.shields.io/github/license/rexzhang/asgi-webdav)](https://github.com/rexzhang/asgi-webdav/blob/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/ASGIWebDAV)](https://pypi.org/project/ASGIWebDAV)
-[![PyPI - Version](https://img.shields.io/pypi/pyversions/ASGIWebDAV.svg)](https://pypi.org/project/ASGIWebDAV/)
-![Pytest Workflow Status](https://github.com/rexzhang/asgi-webdav/actions/workflows/check-pytest.yml/badge.svg)
-[![codecov](https://codecov.io/gh/rexzhang/asgi-webdav/branch/main/graph/badge.svg?token=6D961MCCWN)](https://codecov.io/gh/rexzhang/asgi-webdav)
+[![GitHub](https://img.shields.io/github/license/SilviaSWR/asgi-webdav)](https://github.com/SilviaSWR/asgi-webdav/blob/main/LICENSE)
+![Pytest Workflow Status](https://github.com/SilviaSWR/asgi-webdav/actions/workflows/check-pytest.yml/badge.svg)
 [![Code Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Type Checked: mypy](https://img.shields.io/badge/type--checked-mypy-blue.svg)](https://github.com/rexzhang/asgi-webdav/actions/workflows/check-mypy.yaml)
-[![Docker Pulls](https://img.shields.io/docker/pulls/ray1ex/asgi-webdav)](https://hub.docker.com/r/ray1ex/asgi-webdav)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/ASGIWebDAV)](https://pypi.org/project/ASGIWebDAV)
-[![GitHub Downloads](https://img.shields.io/github/downloads/rexzhang/asgi-webdav/total)](https://github.com/rexzhang/asgi-webdav/releases)
+[![Type Checked: mypy](https://img.shields.io/badge/type--checked-mypy-blue.svg)](https://github.com/SilviaSWR/asgi-webdav/actions/workflows/check-mypy.yaml)
+[![GitHub Downloads](https://img.shields.io/github/downloads/SilviaSWR/asgi-webdav/total)](https://github.com/SilviaSWR/asgi-webdav/releases)
 
 An asynchronous WebDAV server implementation, Support multi-provider, multi-account and permission control.
+
+> **About this fork:** this repository is an independent fork of
+> [rexzhang/asgi-webdav](https://github.com/rexzhang/asgi-webdav), maintained by
+> [SilviaSWR](https://github.com/SilviaSWR). The original project and documentation were created by
+> Rex Zhang. The fork is not published on PyPI; install it from source or use the container image below.
 
 ## Features
 
@@ -31,15 +31,15 @@ An asynchronous WebDAV server implementation, Support multi-provider, multi-acco
 
 ## Quickstart
 
-[中文手册](https://rexzhang.github.io/asgi-webdav/zh/)
+[中文手册](https://silviaswr.github.io/asgi-webdav/zh/)
 
 ```shell
-docker pull ray1ex/asgi-webdav
+docker pull ghcr.io/silviaswr/asgi-webdav
 docker run -dit --restart unless-stopped \
   -p 8000:8000 \
   -e UID=1000 -e GID=1000 \
   -v /your/data:/data \
-  --name asgi-webdav ray1ex/asgi-webdav
+  --name asgi-webdav ghcr.io/silviaswr/asgi-webdav
 ```
 
 ## Default Account
@@ -56,7 +56,7 @@ docker run -dit --restart unless-stopped \
 
 ## Documentation
 
-[Documentation at GitHub Page](https://rexzhang.github.io/asgi-webdav/)
+[Documentation at GitHub Page](https://silviaswr.github.io/asgi-webdav/)
 
 ## Contributing
 

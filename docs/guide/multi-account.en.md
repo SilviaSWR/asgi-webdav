@@ -55,7 +55,7 @@
 ```shell
 docker run --restart always -p 0.0.0.0:8000:8000 \
   -v /your/data:/data -v /your/data/homes:/data/homes \
-  --name asgi-webdav ray1ex/asgi-webdav
+  --name asgi-webdav ghcr.io/silviaswr/asgi-webdav
 ```
 
 ## URL/path mapping table

@@ -52,7 +52,7 @@ To use the WebHDFS provider, configure the `provider_mapping` in your main confi
 Required Python packages:
 
 ```bash
-pip install ASGIWebDAV[webhdfs]
+pip install "ASGIWebDAV[webhdfs] @ git+https://github.com/SilviaSWR/asgi-webdav.git"
 
 # or
 pip install httpx httpx-kerberos
