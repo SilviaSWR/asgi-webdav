@@ -141,3 +141,11 @@ tests/test_zone/**
 !tests/test_zone/**/PREHOLDER
 output/
 try.*
+
+# Cache
+.mypy_cache
+.npm-cache
+.npm-tmp
+
+# Agents
+.agents
