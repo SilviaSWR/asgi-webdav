@@ -1002,6 +1002,51 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Match/Check Account">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#digest-auth-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digest Auth limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bearer-auth-oidc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bearer Auth (OIDC)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bearer Auth (OIDC)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openid-connect-access-token-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenID Connect Access Token Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1806,6 +1851,51 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Match/Check Account">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#digest-auth-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digest Auth limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bearer-auth-oidc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bearer Auth (OIDC)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bearer Auth (OIDC)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openid-connect-access-token-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenID Connect Access Token Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1853,7 +1943,7 @@
 
 
 <h1 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h1>
-<div class='document-dates-plugin-wrapper document-dates-top'><div class='document-dates-plugin' locale=''><div class='dd-left'><span class='dd-item' data-tippy-content data-tippy-raw='2025-10-30'><span class='material-icons' data-icon='doc_created'></span><time datetime='2025-10-30T09:49:16+00:00'>2025-10-30</time></span><span class='dd-item' data-tippy-content data-tippy-raw='2025-10-30'><span class='material-icons' data-icon='doc_updated'></span><time datetime='2025-10-30T09:49:16+00:00'>2025-10-30</time></span></div><div class='dd-right'><span class='material-icons' data-icon='doc_author'></span><div class='author-group'><div class='avatar-wrapper' data-name='Rex Zhang' data-tippy-content data-tippy-raw='<a href="mailto:rex.zhang@gmail.com">Rex Zhang</a>'><span class='avatar-text'></span><img class='avatar' data-src='' data-email='rex.zhang@gmail.com' /></div></div></div></div></div>
+<div class='document-dates-plugin-wrapper document-dates-top'><div class='document-dates-plugin' locale=''><div class='dd-left'><span class='dd-item' data-tippy-content data-tippy-raw='2025-10-30'><span class='material-icons' data-icon='doc_created'></span><time datetime='2025-10-30T09:49:16+00:00'>2025-10-30</time></span><span class='dd-item' data-tippy-content data-tippy-raw='2026-11-10'><span class='material-icons' data-icon='doc_updated'></span><time datetime='2026-11-10T16:26:13+00:00'>2026-11-10</time></span></div><div class='dd-right'><span class='material-icons' data-icon='doc_authors'></span><div class='author-group'><div class='avatar-wrapper' data-name='Rex Zhang' data-tippy-content data-tippy-raw='<a href="mailto:rex.zhang@gmail.com">Rex Zhang</a>'><span class='avatar-text'></span><img class='avatar' data-src='' data-email='rex.zhang@gmail.com' /></div><div class='avatar-wrapper' data-name='SilviaSWR' data-tippy-content data-tippy-raw='<a href="mailto:sbogaart@pic.es">SilviaSWR</a>'><span class='avatar-text'></span><img class='avatar' data-src='' data-email='sbogaart@pic.es' /></div></div></div></div></div>
 
 <h2 id="account-preprocessing">Account Preprocessing<a class="headerlink" href="#account-preprocessing" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1874,20 +1964,176 @@
     B --&gt;|True| ADD_DEFAULT_ACCOUNT --&gt; END
     B --&gt;|False| END</code></pre>
 <h2 id="matchcheck-account">Match/Check Account<a class="headerlink" href="#matchcheck-account" title="Permanent link">&para;</a></h2>
+<p>The server supports three authentication methods, checked in this order:</p>
+<ol>
+<li><strong>HTTP Basic Auth</strong> — <code>Authorization: Basic &lt;base64(user:password)&gt;</code></li>
+<li><strong>HTTP Digest Auth</strong> — <code>Authorization: Digest &lt;digest-data&gt;</code></li>
+<li><strong>HTTP Bearer Auth (OIDC)</strong> — <code>Authorization: Bearer &lt;access_token&gt;</code></li>
+<li><strong>Anonymous</strong> — no <code>Authorization</code> header, falls back to the anonymous user (if enabled)</li>
+</ol>
 <pre class="mermaid"><code>flowchart TB
     START@{ shape: sm-circ, label: "Small start" }
     END@{ shape: framed-circle, label: "Stop" }
     HTTP_HEADER_CHECK{{Get HTTP header: authorization}}
-    HTTP_AUTH[[HTTP Basic/Digest Auth Logic]]
+    BASIC_AUTH{{Is Basic?}}
+    DIGEST_AUTH{{Is Digest?}}
+    BEARER_AUTH{{Is Bearer?}}
+    BASIC_LOGIC[[Basic Auth: parse credentials, verify password]]
+    DIGEST_LOGIC[[Digest Auth: verify digest response]]
+    BEARER_LOGIC[[Bearer Auth: verify JWT signature + claims, extract preferred_username]]
     ALLOW_MISSING_AUTH_HEADER{{config.anonymous.enable and config.anonymous.allow_missing_auth_header?}}
 
     START--&gt; HTTP_HEADER_CHECK
-    HTTP_HEADER_CHECK --&gt;|Got| HTTP_AUTH
     HTTP_HEADER_CHECK --&gt;|None| ALLOW_MISSING_AUTH_HEADER
-    HTTP_AUTH --&gt;|match| USER_IS_X[User = X or Anonymous] --&gt; END
-    HTTP_AUTH --&gt;|failed| 401([HTTP 401/Unauthorized])
+    HTTP_HEADER_CHECK --&gt;|Got| BASIC_AUTH
+    BASIC_AUTH --&gt;|Yes| BASIC_LOGIC
+    BASIC_AUTH --&gt;|No| DIGEST_AUTH
+    DIGEST_AUTH --&gt;|Yes| DIGEST_LOGIC
+    DIGEST_AUTH --&gt;|No| BEARER_AUTH
+    BEARER_AUTH --&gt;|Yes| BEARER_LOGIC
+    BEARER_AUTH --&gt;|No| 401_UNKNOWN([HTTP 401 - Unknown auth method])
+
+    BASIC_LOGIC --&gt;|match| USER_IS_X[User authenticated] --&gt; END
+    BASIC_LOGIC --&gt;|failed| 401([HTTP 401/Unauthorized])
+    DIGEST_LOGIC --&gt;|match| USER_IS_X
+    DIGEST_LOGIC --&gt;|failed| 401
+    BEARER_LOGIC --&gt;|match| USER_IS_X
+    BEARER_LOGIC --&gt;|failed| 401
+
     ALLOW_MISSING_AUTH_HEADER --&gt;|False| 401
     ALLOW_MISSING_AUTH_HEADER --&gt;|True| USER_IS_ANONYMOUS[User = Anonymous] --&gt; END</code></pre>
+<h3 id="digest-auth-limitations">Digest Auth limitations<a class="headerlink" href="#digest-auth-limitations" title="Permanent link">&para;</a></h3>
+<p>HTTP Digest auth needs the plain password or its HA1 hash on the server, so it only works for accounts with a Raw or HTTP Digest mode password. Digest logins for hashlib, LDAP, <code>*ldap</code>, <code>*oidc</code> or accounts with an invalid password format are always rejected, use Basic auth for them. See <a href="../protect-your-password-in-the-config/#compatibility">Compatibility</a>.</p>
+<h3 id="bearer-auth-oidc">Bearer Auth (OIDC)<a class="headerlink" href="#bearer-auth-oidc" title="Permanent link">&para;</a></h3>
+<p>Any user the IdP (Keycloak) authenticates can use Bearer auth, whatever groups it belongs to. When a client sends <code>Authorization: Bearer &lt;access_token&gt;</code>:</p>
+<ol>
+<li>The JWT is verified locally against the IdP's JWKS public keys (fetched at startup and refreshed periodically, see <a href="../protect-your-password-in-the-config/#jwks-keys-and-caching">JWKS keys and caching</a>).</li>
+<li>Claims are checked: <code>exp</code>, <code>iss</code>, <code>aud</code>, <code>sub</code> must be present, plus <code>azp</code>, <code>typ</code> ("Bearer") and <code>scope</code>.</li>
+<li>The <code>preferred_username</code> claim is looked up in <code>account_mapping</code>.</li>
+<li>If found, that account's permissions are used. Otherwise the user inherits the <code>*oidc</code> permissions; if those are empty (<code>[]</code>), HTTP 401 is returned.</li>
+<li>If the token is invalid or malformed, HTTP 401 is returned. Keycloak groups are never used.</li>
+</ol>
+<p>Shared (group-like) access is provided by dedicated accounts that log in with Basic auth, and with the WebHDFS provider HDFS enforces its own permissions for the impersonated user, see <a href="../protect-your-password-in-the-config/#shared-group-like-access">Shared access</a> and <a href="../protect-your-password-in-the-config/#two-permission-layers-webhdfs">Two permission layers</a>.</p>
+<p>The security of this mapping relies on the IdP guaranteeing that <code>preferred_username</code> is unique, assigned by the identity infrastructure and not changeable by users, see <a href="../protect-your-password-in-the-config/#security-assumption-preferred_username">Security assumption</a>.</p>
+<p>See <a href="../protect-your-password-in-the-config/#oidc-openid-connect-bearer-auth">Protect your password</a> for configuration details.</p>
+<h4 id="openid-connect-access-token-requirements">OpenID Connect Access Token Requirements<a class="headerlink" href="#openid-connect-access-token-requirements" title="Permanent link">&para;</a></h4>
+<p>To authenticate using OpenID Connect, the Identity Provider (IdP) <strong>must issue a JWT access token</strong> containing the following claims.</p>
+<p>The server validates these claims to ensure the token was issued by the expected provider and intended for this application.</p>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>iss</code></td>
+<td>Yes</td>
+<td>The issuer of the token. Must match the configured OIDC issuer URL.</td>
+</tr>
+<tr>
+<td><code>aud</code></td>
+<td>Yes</td>
+<td>The intended audience of the token. Must match the configured audience for this application.</td>
+</tr>
+<tr>
+<td><code>sub</code></td>
+<td>Yes</td>
+<td>Subject identifier. Must be present (it is not used for the account mapping).</td>
+</tr>
+<tr>
+<td><code>azp</code></td>
+<td>Yes</td>
+<td>The authorized party (OAuth client ID). Must match the configured client ID.</td>
+</tr>
+<tr>
+<td><code>typ</code></td>
+<td>Yes</td>
+<td>Must be <code>Bearer</code> (as issued by Keycloak access tokens).</td>
+</tr>
+<tr>
+<td><code>scope</code></td>
+<td>Yes</td>
+<td>Space-separated string of granted scopes. Must include the configured required scope.</td>
+</tr>
+<tr>
+<td><code>preferred_username</code></td>
+<td>Yes</td>
+<td>Username of the authenticated identity, mapped to a configured account or to the <code>*oidc</code> permissions.</td>
+</tr>
+<tr>
+<td><code>exp</code></td>
+<td>Yes</td>
+<td>Expiration timestamp (Unix epoch). Tokens without <code>exp</code>, or expired, are rejected.</td>
+</tr>
+<tr>
+<td><code>groups</code></td>
+<td>No</td>
+<td>Not read. Group membership is neither required nor used for permissions.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h5>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://idp.example.com/realms/main"</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">"aud"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webdav"</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f1b2c3d4-0000-4000-8000-000000000000"</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">"azp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webdav-client"</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid webdav"</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="nt">"preferred_username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alice"</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="nt">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1750000000</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="claim-validation">Claim validation<a class="headerlink" href="#claim-validation" title="Permanent link">&para;</a></h5>
+<p>During authentication the server performs the following checks:</p>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Validation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>iss</code></td>
+<td>Required, must equal the configured issuer.</td>
+</tr>
+<tr>
+<td><code>aud</code></td>
+<td>Required, must contain the configured audience.</td>
+</tr>
+<tr>
+<td><code>sub</code></td>
+<td>Required.</td>
+</tr>
+<tr>
+<td><code>exp</code></td>
+<td>Required, must be in the future.</td>
+</tr>
+<tr>
+<td><code>azp</code></td>
+<td>Must equal the configured client ID.</td>
+</tr>
+<tr>
+<td><code>typ</code></td>
+<td>Must equal <code>Bearer</code>.</td>
+</tr>
+<tr>
+<td><code>scope</code></td>
+<td>Must be a string containing the required scope.</td>
+</tr>
+<tr>
+<td><code>preferred_username</code></td>
+<td>Must be a non-empty string, not starting with <code>*</code>.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="compatibility">Compatibility<a class="headerlink" href="#compatibility" title="Permanent link">&para;</a></h5>
+<p>Most OpenID Connect providers (including Keycloak, Authentik, Authelia, Dex, Zitadel and others) can be configured to produce tokens compatible with these requirements.</p>
+<p>The exact set of claims included in the access token depends on the provider configuration and the scopes requested by the client. In particular, <code>preferred_username</code> typically requires the <code>profile</code> scope to be granted.</p>
 <h2 id="anonymous-account">Anonymous Account<a class="headerlink" href="#anonymous-account" title="Permanent link">&para;</a></h2>
 <p>More detail, please see howto.</p>
 
