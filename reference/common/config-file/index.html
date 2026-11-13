@@ -66,17 +66,17 @@
     
       <link rel="stylesheet" href="../../../assets/document_dates/fonts/material-icons.css">
     
-      <link rel="stylesheet" href="../../../assets/document_dates/tippy/light.css">
-    
-      <link rel="stylesheet" href="../../../assets/document_dates/tippy/material.css">
+      <link rel="stylesheet" href="../../../assets/document_dates/tippy/shift-away.css">
     
       <link rel="stylesheet" href="../../../assets/document_dates/tippy/backdrop.css">
     
       <link rel="stylesheet" href="../../../assets/document_dates/tippy/tippy.css">
     
-      <link rel="stylesheet" href="../../../assets/document_dates/tippy/shift-away.css">
-    
       <link rel="stylesheet" href="../../../assets/document_dates/tippy/scale.css">
+    
+      <link rel="stylesheet" href="../../../assets/document_dates/tippy/light.css">
+    
+      <link rel="stylesheet" href="../../../assets/document_dates/tippy/material.css">
     
       <link rel="stylesheet" href="../../../assets/document_dates/core/core.css">
     
@@ -2645,7 +2645,7 @@
 
 
 <h1 id="config-file">Config File<a class="headerlink" href="#config-file" title="Permanent link">&para;</a></h1>
-<div class='document-dates-plugin-wrapper document-dates-top'><div class='document-dates-plugin' locale=''><div class='dd-left'><span class='dd-item' data-tippy-content data-tippy-raw='2026-06-22'><span class='material-icons' data-icon='doc_created'></span><time datetime='2026-06-22T08:32:37+00:00'>2026-06-22</time></span><span class='dd-item' data-tippy-content data-tippy-raw='2026-11-10'><span class='material-icons' data-icon='doc_updated'></span><time datetime='2026-11-10T12:00:54+00:00'>2026-11-10</time></span></div><div class='dd-right'><span class='material-icons' data-icon='doc_authors'></span><div class='author-group'><div class='avatar-wrapper' data-name='Rex Zhang' data-tippy-content data-tippy-raw='<a href="mailto:rex.zhang@gmail.com">Rex Zhang</a>'><span class='avatar-text'></span><img class='avatar' data-src='' data-email='rex.zhang@gmail.com' /></div><div class='avatar-wrapper' data-name='SilviaSWR' data-tippy-content data-tippy-raw='<a href="mailto:sbogaart@pic.es">SilviaSWR</a>'><span class='avatar-text'></span><img class='avatar' data-src='' data-email='sbogaart@pic.es' /></div></div></div></div></div>
+<div class='document-dates-plugin-wrapper document-dates-top'><div class='document-dates-plugin' locale=''><div class='dd-left'><span class='dd-item' data-tippy-content data-tippy-raw='2026-06-22'><span class='material-icons' data-icon='doc_created'></span><time datetime='2026-06-22T08:32:37+00:00'>2026-06-22</time></span><span class='dd-item' data-tippy-content data-tippy-raw='2026-11-13'><span class='material-icons' data-icon='doc_updated'></span><time datetime='2026-11-13T11:47:00+00:00'>2026-11-13</time></span></div><div class='dd-right'><span class='material-icons' data-icon='doc_authors'></span><div class='author-group'><div class='avatar-wrapper' data-name='Rex Zhang' data-tippy-content data-tippy-raw='<a href="mailto:rex.zhang@gmail.com">Rex Zhang</a>'><span class='avatar-text'></span><img class='avatar' data-src='' data-email='rex.zhang@gmail.com' /></div><div class='avatar-wrapper' data-name='SilviaSWR' data-tippy-content data-tippy-raw='<a href="mailto:sbogaart@pic.es">SilviaSWR</a>'><span class='avatar-text'></span><img class='avatar' data-src='' data-email='sbogaart@pic.es' /></div></div></div></div></div>
 
 <h2 id="webdavtoml-file"><code>webdav.toml</code> file<a class="headerlink" href="#webdavtoml-file" title="Permanent link">&para;</a></h2>
 <h3 id="convert-json-to-toml">Convert <code>.json</code> to <code>.toml</code><a class="headerlink" href="#convert-json-to-toml" title="Permanent link">&para;</a></h3>
@@ -2868,8 +2868,15 @@ and then the bundled directory — the working directory is never added.</p>
 <li>Environment variable: <code>WEBDAV_TEMPLATE_FAILURE_POLICY</code></li>
 <li>CLI flag: <code>--template-failure-policy</code></li>
 </ul>
+<p>Any other value is rejected at startup, whether it comes from the config file,
+the environment variable or the CLI: the server logs a critical message and
+exits with status 1. A misspelled policy is never silently replaced by
+<code>fallback</code>.</p>
 <p>At startup, every template in the manifest is parsed and its <code>extends</code>/<code>include</code>
-dependencies are checked. When validation fails:</p>
+dependencies are checked for syntax errors. A dependency that cannot be found is
+only logged as a warning, because Jinja resolves it at render time and
+<code>{% include ... ignore missing %}</code> or a conditional <code>{% extends %}</code> may never
+need it. When validation fails:</p>
 <ul>
 <li><code>fallback</code>: log the broken template and the underlying Jinja error, discard the
   whole custom tree, serve only the bundled templates, and remove the custom

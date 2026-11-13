@@ -66,33 +66,33 @@
     
       <link rel="stylesheet" href="../../../assets/document_dates/fonts/material-icons.css">
     
-      <link rel="stylesheet" href="../../../assets/document_dates/tippy/light.css">
-    
-      <link rel="stylesheet" href="../../../assets/document_dates/tippy/material.css">
+      <link rel="stylesheet" href="../../../assets/document_dates/tippy/shift-away.css">
     
       <link rel="stylesheet" href="../../../assets/document_dates/tippy/backdrop.css">
     
       <link rel="stylesheet" href="../../../assets/document_dates/tippy/tippy.css">
     
-      <link rel="stylesheet" href="../../../assets/document_dates/tippy/shift-away.css">
-    
       <link rel="stylesheet" href="../../../assets/document_dates/tippy/scale.css">
+    
+      <link rel="stylesheet" href="../../../assets/document_dates/tippy/light.css">
+    
+      <link rel="stylesheet" href="../../../assets/document_dates/tippy/material.css">
     
       <link rel="stylesheet" href="../../../assets/document_dates/core/core.css">
     
       <link rel="stylesheet" href="../../../assets/document_dates/fonts/material-icons.css">
     
-      <link rel="stylesheet" href="../../../assets/document_dates/tippy/light.css">
-    
-      <link rel="stylesheet" href="../../../assets/document_dates/tippy/material.css">
+      <link rel="stylesheet" href="../../../assets/document_dates/tippy/shift-away.css">
     
       <link rel="stylesheet" href="../../../assets/document_dates/tippy/backdrop.css">
     
       <link rel="stylesheet" href="../../../assets/document_dates/tippy/tippy.css">
     
-      <link rel="stylesheet" href="../../../assets/document_dates/tippy/shift-away.css">
-    
       <link rel="stylesheet" href="../../../assets/document_dates/tippy/scale.css">
+    
+      <link rel="stylesheet" href="../../../assets/document_dates/tippy/light.css">
+    
+      <link rel="stylesheet" href="../../../assets/document_dates/tippy/material.css">
     
       <link rel="stylesheet" href="../../../assets/document_dates/core/core.css">
     
@@ -1963,7 +1963,7 @@
 
 
 <h1 id="how-to-customise-html-templates">How to customise HTML templates<a class="headerlink" href="#how-to-customise-html-templates" title="Permanent link">&para;</a></h1>
-<div class='document-dates-plugin-wrapper document-dates-top'><div class='document-dates-plugin' locale=''><div class='dd-left'><span class='dd-item' data-tippy-content data-tippy-raw='2026-07-17'><span class='material-icons' data-icon='doc_created'></span><time datetime='2026-07-17T12:20:31+00:00'>2026-07-17</time></span><span class='dd-item' data-tippy-content data-tippy-raw='2026-11-10'><span class='material-icons' data-icon='doc_updated'></span><time datetime='2026-11-10T12:00:54+00:00'>2026-11-10</time></span></div><div class='dd-right'><span class='material-icons' data-icon='doc_author'></span><div class='author-group'><div class='avatar-wrapper' data-name='SilviaSWR' data-tippy-content data-tippy-raw='<a href="mailto:sbogaart@pic.es">SilviaSWR</a>'><span class='avatar-text'></span><img class='avatar' data-src='' data-email='sbogaart@pic.es' /></div></div></div></div></div>
+<div class='document-dates-plugin-wrapper document-dates-top'><div class='document-dates-plugin' locale=''><div class='dd-left'><span class='dd-item' data-tippy-content data-tippy-raw='2026-07-17'><span class='material-icons' data-icon='doc_created'></span><time datetime='2026-07-17T12:20:31+00:00'>2026-07-17</time></span><span class='dd-item' data-tippy-content data-tippy-raw='2026-11-13'><span class='material-icons' data-icon='doc_updated'></span><time datetime='2026-11-13T11:47:00+00:00'>2026-11-13</time></span></div><div class='dd-right'><span class='material-icons' data-icon='doc_author'></span><div class='author-group'><div class='avatar-wrapper' data-name='SilviaSWR' data-tippy-content data-tippy-raw='<a href="mailto:sbogaart@pic.es">SilviaSWR</a>'><span class='avatar-text'></span><img class='avatar' data-src='' data-email='sbogaart@pic.es' /></div></div></div></div></div>
 
 <h2 id="template-system">Template system<a class="headerlink" href="#template-system" title="Permanent link">&para;</a></h2>
 <p>Create a directory with your custom templates:</p>
@@ -2001,8 +2001,11 @@ the bundled templates.</p>
 exposes the working directory through <code>/_/static/</code>.</p>
 <h2 id="startup-validation-and-failure-policy">Startup validation and failure policy<a class="headerlink" href="#startup-validation-and-failure-policy" title="Permanent link">&para;</a></h2>
 <p>All templates in the application manifest are parsed at startup, together with
-their <code>extends</code>/<code>include</code> dependencies. If any of them is broken, the
-<code>template_failure_policy</code> setting decides what happens:</p>
+their <code>extends</code>/<code>include</code> dependencies. A syntax error in any of them is a
+failure. A dependency that cannot be found is only logged as a warning, since
+<code>{% include ... ignore missing %}</code> and conditional <code>{% extends %}</code> are valid
+Jinja. When a template is broken, the <code>template_failure_policy</code> setting decides
+what happens:</p>
 <ul>
 <li><code>fallback</code> (default): log the broken template and the Jinja error, discard the
   whole custom tree, and serve the bundled templates only.</li>
@@ -2010,6 +2013,8 @@ their <code>extends</code>/<code>include</code> dependencies. If any of them is 
 </ul>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python<span class="w"> </span>-m<span class="w"> </span>asgi_webdav<span class="w"> </span>--template-dir<span class="w"> </span>./my-templates<span class="w"> </span>--template-failure-policy<span class="w"> </span>stop
 </span></code></pre></div>
+<p>Any other <code>template_failure_policy</code> value is rejected at startup (exit status 1)
+instead of falling back, so a typo cannot disable <code>stop</code>.</p>
 <p>The custom tree is discarded as a whole on failure; a page never mixes custom
 and bundled files.</p>
 <h2 id="401-error-page">401 error page<a class="headerlink" href="#401-error-page" title="Permanent link">&para;</a></h2>
